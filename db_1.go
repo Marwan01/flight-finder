@@ -4,13 +4,8 @@ import "fmt"
 
 func main() {
 	readFirstCommand()
-
+	fmt.Println()
 }
-
-func add(string) {
-
-}
-
 func readFirstCommand() {
 	var firstCommand = ""
 	for {
@@ -47,5 +42,31 @@ func readSecondCommand() string {
 			fmt.Println("wrong entry, try again")
 		}
 	}
+
+}
+
+func add(secondCommand string) {
+	if secondCommand == "c" {
+		addC()
+	} else if secondCommand == "a" {
+		addA()
+	} else {
+		addF()
+	}
+}
+
+func addC() {
+	var cityCode = ""
+	var cityName = ""
+	fmt.Scan(&cityCode)
+	fmt.Scanln(&cityName)
+}
+
+func addA() {
+	fmt.Println("yay made it to a, a")
+
+}
+
+func addF() {
 
 }
