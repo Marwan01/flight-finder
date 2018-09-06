@@ -1,22 +1,26 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 )
 
 func main() {
-	fmt.Println("welcome to first database project, Enter command, and click enter at the end of each command")
+	// fmt.Println("welcome to first database project, Enter command, and click enter at the end of each command")
 	// readFirstCommand()
 	// fmt.Println()
-	fileHandle, _ := os.Open("data.txt")
-	defer fileHandle.Close()
-	fileScanner := bufio.NewScanner(fileHandle)
+	// fileHandle, _ := os.Open("data.txt")
+	// defer fileHandle.Close()
+	// fileScanner := bufio.NewScanner(fileHandle)
 
-	for fileScanner.Scan() {
-		fmt.Println(fileScanner.Text())
-	}
+	// for fileScanner.Scan() {
+	// 	fmt.Println(fileScanner.Text())
+	// }
+
+	var cityCode string
+	var numberOfInputs int
+	numberOfInputs, _ = fmt.Scan(&cityCode)
+	fmt.Println(cityCode)
+	fmt.Println(numberOfInputs)
 }
 func readFirstCommand() {
 	var firstCommand = ""
@@ -68,7 +72,7 @@ func add(secondCommand string) {
 }
 
 func addC() {
-	var cityCode = ""
+	var cityCode []string
 	var cityName = ""
 	fmt.Scan(&cityCode)
 	fmt.Scanln(&cityName)
