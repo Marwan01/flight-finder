@@ -1,10 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
 func main() {
-	readFirstCommand()
-	fmt.Println()
+	fmt.Println("welcome to first database project, Enter command, and click enter at the end of each command")
+	// readFirstCommand()
+	// fmt.Println()
+	fileHandle, _ := os.Open("data.txt")
+	defer fileHandle.Close()
+	fileScanner := bufio.NewScanner(fileHandle)
+
+	for fileScanner.Scan() {
+		fmt.Println(fileScanner.Text())
+	}
 }
 func readFirstCommand() {
 	var firstCommand = ""
