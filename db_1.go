@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
 )
 
 func main() {
@@ -16,18 +19,32 @@ func main() {
 	// 	fmt.Println(fileScanner.Text())
 	// }
 
-	var cityCode string
-	var numberOfInputs int
-	numberOfInputs, _ = fmt.Scan(&cityCode)
-	fmt.Println(cityCode)
-	fmt.Println(numberOfInputs)
+	fmt.Print("\nEnter your Full Command: ")
+
+	reader := bufio.NewReader(os.Stdin)
+	input, _ := reader.ReadString('\n')
+	var commands []string
+	commands = strings.Split(input, " ")
+	fmt.Println(commands[0])
+	fmt.Println(commands[1])
+	fmt.Println("---------------")
+	for _, singleCommand := range commands {
+		fmt.Println(singleCommand)
+		// good idea: use commad[1], command[2], command[3], concat( rest)
+	}
+
+	// var cityCode string
+	// var numberOfInputs int
+	// numberOfInputs, _ = fmt.Scan(&cityCode)
+	// fmt.Println(cityCode)
+	// fmt.Println(numberOfInputs)
 }
-func readFirstCommand() {
-	var firstCommand = ""
+func ExecuteFirstCommand(c1 string, c2 string) {
+	var firstCommand = c1
+	var secondCommand = c2
 	for {
-		fmt.Scanln(&firstCommand)
 		if firstCommand == "a" {
-			add(readSecondCommand())
+			Add(ValidateSecondCommand(secondCommand))
 			return
 		} else if firstCommand == "l" {
 			// list
@@ -44,10 +61,9 @@ func readFirstCommand() {
 	}
 }
 
-func readSecondCommand() string {
-	var secondCommand = ""
+func ValidateSecondCommand(c2 string) string {
+	var secondCommand = c2
 	for {
-		fmt.Scanln(&secondCommand)
 		if secondCommand == "c" {
 			return "c"
 		} else if secondCommand == "a" {
@@ -61,9 +77,9 @@ func readSecondCommand() string {
 
 }
 
-func add(secondCommand string) {
+func Add(secondCommand string, cc string, cn string) {
 	if secondCommand == "c" {
-		addC()
+		addC(cc, cn)
 	} else if secondCommand == "a" {
 		addA()
 	} else {
@@ -71,9 +87,9 @@ func add(secondCommand string) {
 	}
 }
 
-func addC() {
-	var cityCode []string
-	var cityName = ""
+func addC(cc string, cn string) {
+	var cityCode = cc
+	var cityName = cn
 	fmt.Scan(&cityCode)
 	fmt.Scanln(&cityName)
 }
