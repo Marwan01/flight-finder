@@ -8,43 +8,46 @@ import (
 )
 
 func main() {
-	// fmt.Println("welcome to first database project, Enter command, and click enter at the end of each command")
-	// readFirstCommand()
-	// fmt.Println()
-	// fileHandle, _ := os.Open("data.txt")
-	// defer fileHandle.Close()
-	// fileScanner := bufio.NewScanner(fileHandle)
 
-	// for fileScanner.Scan() {
-	// 	fmt.Println(fileScanner.Text())
-	// }
-
-	fmt.Print("\nEnter your Full Command: ")
+	fmt.Println("\nEnter your Full Command: ")
 
 	reader := bufio.NewReader(os.Stdin)
 	input, _ := reader.ReadString('\n')
 	var commands []string
 	commands = strings.Split(input, " ")
-	fmt.Println(commands[0])
-	fmt.Println(commands[1])
-	fmt.Println("---------------")
-	for _, singleCommand := range commands {
-		fmt.Println(singleCommand)
-		// good idea: use commad[1], command[2], command[3], concat( rest)
+	// for _, singleCommand := range commands {
+
+	// 	// good idea: use commad[1], command[2], command[3], concat( rest)
+	// }
+
+	var namesOfCities = commands[2:]
+	fmt.Println(namesOfCities)
+	var firstCommand = commands[0]
+	for {
+		if firstCommand == "a" {
+			// Add(ValidateSecondCommand(secondCommand))
+			return
+		} else if firstCommand == "l" {
+			// list
+			return
+		} else if firstCommand == "f" {
+			// find
+			return
+		} else if firstCommand == "q" {
+			// quit
+			return
+		} else {
+			fmt.Println("wrong entry, try again")
+		}
 	}
 
-	// var cityCode string
-	// var numberOfInputs int
-	// numberOfInputs, _ = fmt.Scan(&cityCode)
-	// fmt.Println(cityCode)
-	// fmt.Println(numberOfInputs)
 }
 func ExecuteFirstCommand(c1 string, c2 string) {
 	var firstCommand = c1
-	var secondCommand = c2
+	//var secondCommand = c2
 	for {
 		if firstCommand == "a" {
-			Add(ValidateSecondCommand(secondCommand))
+			// Add(ValidateSecondCommand(secondCommand))
 			return
 		} else if firstCommand == "l" {
 			// list
