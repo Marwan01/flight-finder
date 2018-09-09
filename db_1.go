@@ -3,12 +3,16 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
 
 func main() {
-
+	file, err := os.Create("data.txt")
+	if err != nil {
+		log.Fatal("Cannot create file", err)
+	}
 	// for _, singleCommand := range commands {
 
 	// 	// good idea: use commad[1], command[2], command[3], concat( rest)
@@ -24,10 +28,12 @@ func main() {
 		var commands []string
 		commands = strings.Split(input, " ")
 		var firstCommand = commands[0]
-		var secondCommand = commands[1]
-		var cc, cn string // city code and city name
+		var secondCommand = commands[1] // need fix for when q is entered ( dont have second command, will complain)
+		var cc, cn string               // city code and city name
 		var startcc, endcc string
 		var connections int
+		cc = commands[2]
+		cn = commands[3] + commands[4]
 		if firstCommand == "a" {
 
 			if secondCommand == "c" {
@@ -66,15 +72,17 @@ func main() {
 }
 
 // AddC adds a city
-func AddC(cc string, cn string) {
+func AddC(cc string, cn string, f *os.File) {
 	var cityCode = cc
 	var cityName = cn
-	fmt.Scan(&cityCode)
-	fmt.Scanln(&cityName)
+	fmt.Println(cityCode)
+	fmt.Println(cityName)
+	defer file.Close()
+	fmt.Fprintln(file, cityCode+" "+cityName)
 }
 
 // AddA adds an airport
-func AddA() {
+func AddA(f *os.File) {
 	fmt.Println("yay made it to a, a")
 
 }
