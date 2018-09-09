@@ -65,6 +65,7 @@ func main() {
 
 }
 
+// AddC adds a city
 func AddC(cc string, cn string) {
 	var cityCode = cc
 	var cityName = cn
@@ -72,26 +73,34 @@ func AddC(cc string, cn string) {
 	fmt.Scanln(&cityName)
 }
 
+// AddA adds an airport
 func AddA() {
 	fmt.Println("yay made it to a, a")
 
 }
 
+// AddF adds a flight
 func AddF() {
 
 }
 
+// LoadC loads cities
+func LoadC() {
+
+}
+
+// LoadA loads airports
 func LoadA() {
 
 }
 
-func LoadC() {
-
-}
+// LoadF loads flights
 func LoadF() {
 
 }
 
+// Find finds flights according to entries of starting city and
+// finish city and number of connections
 func Find(startcc string, endcc string, connections int) {
 
 }
