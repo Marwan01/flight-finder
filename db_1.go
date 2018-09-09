@@ -13,6 +13,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Cannot create file", err)
 	}
+	defer file.Close()
 	// for _, singleCommand := range commands {
 
 	// 	// good idea: use commad[1], command[2], command[3], concat( rest)
@@ -30,6 +31,7 @@ func main() {
 		var firstCommand = commands[0]
 		var secondCommand = commands[1] // need fix for when q is entered ( dont have second command, will complain)
 		var cc, cn string               // city code and city name
+		// var aa, an string
 		var startcc, endcc string
 		var connections int
 		cc = commands[2]
@@ -37,9 +39,9 @@ func main() {
 		if firstCommand == "a" {
 
 			if secondCommand == "c" {
-				AddC(cc, cn)
+				AddC(cc, cn, file)
 			} else if secondCommand == "a" {
-				AddA()
+				AddA(cc, cn, file)
 			} else if secondCommand == "f" {
 				AddF()
 			} else {
@@ -75,21 +77,17 @@ func main() {
 func AddC(cc string, cn string, f *os.File) {
 	var cityCode = cc
 	var cityName = cn
-	fmt.Println(cityCode)
-	fmt.Println(cityName)
-	defer file.Close()
-	fmt.Fprintln(file, cityCode+" "+cityName)
+	fmt.Fprintln(f, cityCode+" "+cityName)
 }
 
 // AddA adds an airport
-func AddA(f *os.File) {
-	fmt.Println("yay made it to a, a")
-
+func AddA(aa string, an string, f *os.File) {
+	fmt.Fprintln(f, aa+" "+an)
 }
 
 // AddF adds a flight
-func AddF() {
-
+func AddF(aa, cc1, cc2, p string, f *os.File) {
+	fmt.Fprintln(f, aa+" "+cc1+" "+cc2+" "+p)
 }
 
 // LoadC loads cities
