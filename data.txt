@@ -1,4 +1,1 @@
-c: stl  a c stl saint louis
-a: trs  a a trs transit airport
-f: twa stl jfk 119
-a: aa  a a aa aaaaa aaaaa aaaaa
+c: stl  san loui
