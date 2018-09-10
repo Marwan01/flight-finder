@@ -40,13 +40,16 @@ func main() {
 			} else if secondCommand == "a" {
 				AddA(cc, cn, file)
 			} else if secondCommand == "f" {
-				// AddF()
+				aa := commands[2] // airport abbreviation
+				dc := commands[3] // departure city
+				ac := commands[4] // arrival city
+				p := commands[5]  // price
+				AddF(aa, dc, ac, p, file)
 			} else {
 				fmt.Println("wrong second command, try again")
 			}
 
 		} else if firstCommand == "l" {
-			fmt.Println("inside l")
 			var secondCommand = commands[1]
 			if secondCommand == "c" {
 				LoadC(file)
@@ -117,7 +120,16 @@ func LoadA(f *os.File) {
 
 // LoadF loads flights
 func LoadF(f *os.File) {
-
+	f, _ = os.Open("data.txt")
+	b, _ := ioutil.ReadAll(f)
+	s := string(b)
+	var arr []string
+	arr = strings.Split(s, "\n")
+	for i := 0; i < len(arr); i++ {
+		if strings.Contains(arr[i], "f: ") {
+			fmt.Println(arr[i])
+		}
+	}
 }
 
 // Find finds flights according to entries of starting city and

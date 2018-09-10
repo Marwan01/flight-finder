@@ -1,2 +1,4 @@
-c: sto  a c sto stockholm
-a: air  a a air port
+c: stl  a c stl saint louis
+a: trs  a a trs transit airport
+f: twa stl jfk 119
+a: aa  a a aa aaaaa aaaaa aaaaa
