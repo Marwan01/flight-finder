@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -27,11 +26,13 @@ func main() {
 
 	for {
 		fmt.Println("\nEnter your Full Command: ")
-		reader := bufio.NewReader(os.Stdin)
-		input, _ := reader.ReadString('\n')
+		var s1 string
+		fmt.Scan(&s1)
+		fmt.Println(s1)
 		var commands []string
-		commands = strings.Split(input, " ")
+		commands = strings.Split(s1, " ")
 		var firstCommand = commands[0]
+		fmt.Println(commands)
 		// need fix for when q is entered ( dont have second command, will complain)
 		// city code and city name
 		// var aa, an string
@@ -44,7 +45,7 @@ func main() {
 			for i := 0; i < len(commands); i++ {
 				cn = cn + " " + commands[i]
 			}
-			if secondCommand == "c" {
+			if strings.Contains(secondCommand, "c") {
 				AddC(cc, cn, file)
 			} else if secondCommand == "a" {
 				AddA(cc, cn, file)
