@@ -23,11 +23,7 @@ func main() {
 		text = strings.TrimSuffix(text, "\n")
 		var commands []string
 		commands = strings.Split(text, " ")
-
 		var firstCommand = commands[0]
-		var startcc, endcc string
-		var connections int
-
 		if firstCommand == "a" {
 			var secondCommand = commands[1]
 			var cc, cn string
@@ -62,8 +58,12 @@ func main() {
 			}
 
 		} else if firstCommand == "f" {
+			var startcc, endcc string
+			var connections string
+			startcc = commands[1]
+			endcc = commands[2]
+			connections = commands[3]
 			Find(startcc, endcc, connections)
-			return
 		} else if firstCommand == "q" {
 			// quit
 			os.Exit(3)
@@ -134,6 +134,15 @@ func LoadF(f *os.File) {
 
 // Find finds flights according to entries of starting city and
 // finish city and number of connections
-func Find(startcc string, endcc string, connections int) {
-
+func Find(startcc string, endcc string, connections string, f *os.File) {
+	f, _ = os.Open("data.txt")
+	b, _ := ioutil.ReadAll(f)
+	s := string(b)
+	var arr []string
+	arr = strings.Split(s, "\n")
+	for i := 0; i < len(arr); i++ {
+		if strings.Contains(arr[i], "f: ") {
+			fmt.Println(arr[i])
+		}
+	
 }
