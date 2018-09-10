@@ -4,33 +4,24 @@ import (
 	"bufio"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"strings"
 )
 
 func main() {
-	file, err := os.Create("data.txt") // assumes a file already exits
-	if err != nil {
-		log.Fatal("Cannot open file", err)
-	}
-	defer file.Close()
-
-	// }
-	// for _, singleCommand := range commands {
-
-	// 	// good idea: use commad[1], command[2], command[3], concat( rest)
-	// }
-
-	// var namesOfCities = commands[2:]
-	// fmt.Println(namesOfCities)
 
 	for {
+		// file = os.Open("data.txt") // assumes a file already exits
+		file, _ := os.Open("data.txt") // assumes a file already exits
 		fmt.Println("\nEnter your Full Command: ")
+		// scanner := bufio.NewScanner(os.Stdin)
+		// scanner.Split(bufio.ScanWords)
 		reader := bufio.NewReader(os.Stdin)
-		input, _ := reader.ReadString('\n')
+		text, _ := reader.ReadString('\n')
+		text = strings.TrimSuffix(text, "\n")
 		var commands []string
-		commands = strings.Split(input, " ")
+		commands = strings.Split(text, " ")
+
 		var firstCommand = commands[0]
 
 		// need fix for when q is entered ( dont have second command, will complain)
@@ -38,15 +29,17 @@ func main() {
 		// var aa, an string
 		var startcc, endcc string
 		var connections int
+
 		if firstCommand == "a" {
+			var secondCommand = commands[1]
 			var cc, cn string
 			cc = commands[2]
-			var secondCommand = commands[1]
 			for i := 0; i < len(commands); i++ {
 				cn = cn + " " + commands[i]
 			}
 			if strings.Contains(secondCommand, "c") {
-				AddC(cc, cn, file)
+				// AddC(cc, cn, file)
+				fmt.Fprintln(file, "c: "+cc+" "+cn)
 			} else if secondCommand == "a" {
 				AddA(cc, cn, file)
 			} else if secondCommand == "f" {
@@ -58,7 +51,6 @@ func main() {
 		} else if firstCommand == "l" {
 			fmt.Println("inside l")
 			var secondCommand = commands[1]
-			fmt.Print(secondCommand)
 			if secondCommand == "c" {
 				LoadC(file)
 			} else if secondCommand == "a" {
@@ -78,6 +70,7 @@ func main() {
 		} else {
 			fmt.Println("wrong first command, try again")
 		}
+		defer file.Close()
 	}
 
 }
@@ -101,6 +94,7 @@ func AddF(aa, cc1, cc2, p string, f *os.File) {
 
 // LoadC loads cities
 func LoadC(f *os.File) {
+	os.Open("data.txt")
 	b, _ := ioutil.ReadAll(f)
 	s := string(b)
 	var arr []string
