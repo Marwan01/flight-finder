@@ -4,18 +4,20 @@ import (
 	"bufio"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"strings"
 )
 
 func main() {
-
+	file, err := os.Create("data.txt") // assumes a file already exits
+	if err != nil {
+		log.Fatal("Cannot open file", err)
+	}
+	defer file.Close()
 	for {
-		// file = os.Open("data.txt") // assumes a file already exits
-		file, _ := os.Open("data.txt") // assumes a file already exits
+
 		fmt.Println("\nEnter your Full Command: ")
-		// scanner := bufio.NewScanner(os.Stdin)
-		// scanner.Split(bufio.ScanWords)
 		reader := bufio.NewReader(os.Stdin)
 		text, _ := reader.ReadString('\n')
 		text = strings.TrimSuffix(text, "\n")
@@ -23,10 +25,6 @@ func main() {
 		commands = strings.Split(text, " ")
 
 		var firstCommand = commands[0]
-
-		// need fix for when q is entered ( dont have second command, will complain)
-		// city code and city name
-		// var aa, an string
 		var startcc, endcc string
 		var connections int
 
@@ -38,8 +36,7 @@ func main() {
 				cn = cn + " " + commands[i]
 			}
 			if strings.Contains(secondCommand, "c") {
-				// AddC(cc, cn, file)
-				fmt.Fprintln(file, "c: "+cc+" "+cn)
+				AddC(cc, cn, file)
 			} else if secondCommand == "a" {
 				AddA(cc, cn, file)
 			} else if secondCommand == "f" {
@@ -70,9 +67,7 @@ func main() {
 		} else {
 			fmt.Println("wrong first command, try again")
 		}
-		defer file.Close()
 	}
-
 }
 
 // AddC adds a city
@@ -94,7 +89,7 @@ func AddF(aa, cc1, cc2, p string, f *os.File) {
 
 // LoadC loads cities
 func LoadC(f *os.File) {
-	os.Open("data.txt")
+	f, _ = os.Open("data.txt")
 	b, _ := ioutil.ReadAll(f)
 	s := string(b)
 	var arr []string
@@ -108,7 +103,16 @@ func LoadC(f *os.File) {
 
 // LoadA loads airports
 func LoadA(f *os.File) {
-
+	f, _ = os.Open("data.txt")
+	b, _ := ioutil.ReadAll(f)
+	s := string(b)
+	var arr []string
+	arr = strings.Split(s, "\n")
+	for i := 0; i < len(arr); i++ {
+		if strings.Contains(arr[i], "a: ") {
+			fmt.Println(arr[i])
+		}
+	}
 }
 
 // LoadF loads flights
