@@ -103,10 +103,16 @@ func LoadC(f *os.File) {
 	s := string(b)             //convert from []byte to string
 	var arr []string           //create a new string array of strings that will have as elements the lines read from the file
 	arr = strings.Split(s, "\n")
+	var str []string // slice of strings to hold every single space seperated string collected from each line read from the file
 	for i := 0; i < len(arr); i++ {
-		if strings.Contains(arr[i], "c: ") { // check if a city, indicated by starting string: "c: " is found
-			fmt.Println(arr[i]) // if found, print the whole line
+		str = strings.Split(arr[i], " ")
+		if str[0] == "c:" { // check if a city, indicated by starting string: "c: " is found
+			fmt.Print(str[1] + " ")
+			for j := 2; j < len(str); j++ {
+				fmt.Print(str[j] + " ")
+			}
 		}
+		fmt.Print("\n")
 	}
 }
 
@@ -117,10 +123,16 @@ func LoadA(f *os.File) {
 	s := string(b)             //convert from []byte to string
 	var arr []string           //create a new string array of strings that will have as elements the lines read from the file
 	arr = strings.Split(s, "\n")
+	var str []string // slice of strings to hold every single space seperated string collected from each line read from the file
 	for i := 0; i < len(arr); i++ {
-		if strings.Contains(arr[i], "a: ") { // check if an airport, indicated by starting string: "a: " is found
-			fmt.Println(arr[i]) // if found, print the whole line
+		str = strings.Split(arr[i], " ")
+		if str[0] == "a:" { // check if a city, indicated by starting string: "c: " is found
+			fmt.Print(str[1] + " ")
+			for j := 2; j < len(str); j++ {
+				fmt.Print(str[j] + " ")
+			}
 		}
+		fmt.Print("\n")
 	}
 }
 
@@ -131,10 +143,24 @@ func LoadF(f *os.File) {
 	s := string(b)             //convert from []byte to string
 	var arr []string           //create a new string array of strings that will have as elements the lines read from the file
 	arr = strings.Split(s, "\n")
+	var str []string // slice of strings to hold every single space seperated string collected from each line read from the file
 	for i := 0; i < len(arr); i++ {
-		if strings.Contains(arr[i], "f: ") { // check if a flight, indicated by starting string: "f: " is found
-			fmt.Println(arr[i]) // if found, print the whole line
+		str = strings.Split(arr[i], " ")
+		if str[0] == "f:" { // check if a city, indicated by starting string: "c: " is found
+			for j := 0; j < len(arr); j++ {
+				if strings.Contains(arr[j], "a:") {
+					var strA []string
+					strA = strings.Split(arr[j], " ")
+					if str[1] == strA[1] {
+						for k := 2; k < len(str); k++ {
+							fmt.Print(strA[k] + ": ")
+							fmt.Println("inside the one I wanna be in")
+						}
+					}
+				}
+			}
 		}
+		fmt.Print("\n")
 	}
 }
 
@@ -147,9 +173,30 @@ func Find(startcc string, endcc string, connections string, f *os.File) {
 	s := string(b)             //convert from []byte to string
 	var arr []string           //create a new string array of strings that will have as elements the lines read from the file
 	arr = strings.Split(s, "\n")
-	for i := 0; i < len(arr); i++ {
-		if strings.Contains(arr[i], "a: ") || strings.Contains(arr[i], "f: ") {
-			fmt.Println(arr[i])
+	if connections == "0" {
+		for i := 0; i < len(arr); i++ {
+			var aa []string
+			if strings.Contains(arr[i], "f:") {
+				aa = strings.Split(arr[i], " ")
+				if startcc == aa[2] && endcc == aa[3] {
+					fmt.Println(startcc + " -> " + endcc + " : " + aa[1] + " $" + aa[4])
+				}
+			}
 		}
 	}
+	if connections == "1" {
+		var strs []string
+		strs = strings.Split(s, " ")
+		fmt.Println(strs)
+
+	}
+	// want to compare startcc to
+
+	// for i := 0; i < len(arr); i++ {
+	// 	if strings.Contains(arr[i], "a: ") || strings.Contains(arr[i], "f: ") {
+	// 		fmt.Println(arr[i])
+	// 	}
+	// }
 }
+
+// missing output formatting as well.
