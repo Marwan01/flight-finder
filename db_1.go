@@ -129,7 +129,7 @@ func LoadA(f *os.File) {
 		str = strings.Split(arr[i], " ")
 		if str[0] == "a:" { // check if an airport, indicated by starting string: "a: " is found
 			fmt.Print(str[1] + " ")
-			for j := 2; j < len(str); j++ {
+			for j := 2; j < len(str); j++ { // print the rest of the string
 				fmt.Print(str[j] + " ")
 			}
 		}
@@ -148,48 +148,9 @@ func LoadF(f *os.File) {
 	for i := 0; i < len(arr); i++ {
 		str = strings.Split(arr[i], " ")
 		if str[0] == "f:" { // check if a city, indicated by starting string: "c: " is found
-			fmt.Println(str[1] + ": " + str[2] + " ->" + str[3] + " $" + str[4])
-
+			fmt.Println(str[1] + ": " + str[2] + " ->" + str[3] + " $" + str[4]) // print chunks of flight line
 		}
 	}
-	// var airportLines []string
-	// var cityLines []string
-	// var k1 int
-	// var k2 int
-	// for i := 0; i < len(arr); i++ {
-	// 	str = strings.Split(arr[i], " ")
-	// 	fmt.Println(str)
-	// 	if str[0] == "a:" {
-	// 		airportLines[k1] = arr[i]
-	// 		k1++
-	// 		fmt.Println(airportLines[k1])
-	// 	}
-	// 	if str[0] == "c:" {
-	// 		cityLines[k2] = arr[i]
-	// 		k2++
-	// 	}
-	// }
-	// for i := 0; i < len(arr); i++ {
-	// 	if str[0] == "f:" { // check if a flight, indicated by starting string: "f: " is found
-	// 		// find the airport with code str[i]
-	// 		strAirportLines := strings.Split(airportLines[i], "  ")
-	// 		for j := 2; j < len(airportLines); j++ {
-	// 			if str[1] == strAirportLines[1] {
-	// 				fmt.Print(strAirportLines[j] + ": ")
-	// 			}
-	// 		}
-	// 		strCityLines := strings.Split(cityLines[i], "  ")
-	// 		for j := 2; j < len(cityLines); j++ {
-	// 			if str[2] == strCityLines[1] {
-	// 				fmt.Print(strCityLines[j] + " -> ")
-	// 			}
-	// 			if str[3] == strCityLines[1] {
-	// 				fmt.Print(strCityLines[j] + " $")
-	// 			}
-	// 		}
-	// 		fmt.Println(str[4])
-	// 	}
-	// }
 }
 
 // Find finds flights according to entries of starting city and
@@ -201,37 +162,36 @@ func Find(startcc string, endcc string, connections string, f *os.File) {
 	s := string(b)             //convert from []byte to string
 	var arr []string           //create a new string array of strings that will have as elements the lines read from the file
 	arr = strings.Split(s, "\n")
-	if connections == "0" {
+	if connections == "0" { // when we want no connections as in direct flight
 		for i := 0; i < len(arr); i++ {
-			var aa []string
+			var aa []string // string array to temporarily hold splits of a string line
 			aa = strings.Split(arr[i], " ")
-			if aa[0] == "f:" {
+			if aa[0] == "f:" { // if the first line indicates a flight
 				if startcc == aa[2] && endcc == aa[3] {
 					fmt.Println(startcc + " -> " + endcc + " : " + aa[1] + " $" + aa[4])
 				}
 			}
 		}
 	}
-	if connections == "1" {
-		// var strs []string
-		// strs = strings.Split(s, " ")
+	if connections == "1" { // if we want a flight with one connection
 		for i := 0; i < len(arr); i++ {
-			if strings.Contains(arr[i], "f:") {
-				var start []string
+			if strings.Contains(arr[i], "f:") { // if we have a flight line,
+				var start []string // string array to temporarily hold splits of a string line
 				start = strings.Split(arr[i], " ")
 				if startcc == start[2] {
 					for j := 0; j < len(arr); j++ {
 						var arrival []string
 						arrival = strings.Split(arr[j], " ")
 						if strings.Contains(arr[j], "f:") {
-							// fmt.Println(arrival[3] + "--" + endcc)
 							if strings.Contains(endcc, arrival[3]) {
 								if strings.Contains(start[3], arrival[2]) {
-									var finalPrice int
-									p1, _ := strconv.Atoi(start[4])
-									p2, _ := strconv.Atoi(arrival[4])
-									finalPrice = p1 + p2
-									fmt.Println(startcc + " -> " + start[3] + " : " + start[1] + " $" + start[4] + "; " + start[3] + " -> " + endcc + " : " + arrival[1] + " $" + arrival[4] + ", for a total cost of $" + strconv.Itoa(finalPrice))
+									var finalPrice int                                                                                                                                                                                    // integer denoting final cost of two flights coupled together
+									p1, _ := strconv.Atoi(start[4])                                                                                                                                                                       // convert to number
+									p2, _ := strconv.Atoi(arrival[4])                                                                                                                                                                     // convert to number
+									finalPrice = p1 + p2                                                                                                                                                                                  // add together
+									var finalPriceStr string                                                                                                                                                                              // string to hold the final price to be outputted
+									finalPriceStr = strconv.Itoa(finalPrice)                                                                                                                                                              // convert final price to string
+									fmt.Println(startcc + " -> " + start[3] + " : " + start[1] + " $" + start[4] + "; " + start[3] + " -> " + endcc + " : " + arrival[1] + " $" + arrival[4] + ", for a total cost of $" + finalPriceStr) // output
 								}
 							}
 						}
@@ -239,15 +199,7 @@ func Find(startcc string, endcc string, connections string, f *os.File) {
 				}
 
 			}
-			// want to compare startcc to
 
-			// for i := 0; i < len(arr); i++ {
-			// 	if strings.Contains(arr[i], "a: ") || strings.Contains(arr[i], "f: ") {
-			// 		fmt.Println(arr[i])
-			// 	}
-			// }
 		}
 	}
 }
-
-// missing output formatting as well.
