@@ -1,4 +1,4 @@
-Marouen Helali
+Plane Seating Company
 
 September 9th 2018
 
@@ -8,7 +8,7 @@ steps to compile: ( assuming you have go installed globally on your machine)
 1. Download and extract the given zip file.
 2. In a terminal window, navigate to the project's folder.
 3. Run the following command: go run db_1.go 
-In case step 3. does not work, try copying the project folder to ~/go/src and running in from there.
+In case step 3. does not work, try copying the project folder to ~/go/src and running it from there.
 
 bugs: none that I noticed so far
 
