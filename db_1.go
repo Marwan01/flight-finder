@@ -67,6 +67,7 @@ func main() {
 			connections = commands[3]
 			Find(startcc, endcc, connections, file)
 		} else if firstCommand == "q" {
+			fmt.Println("Goodbye!")
 			os.Exit(3) // quit with exit code 3
 		} else {
 			fmt.Println("wrong first command, try again")
