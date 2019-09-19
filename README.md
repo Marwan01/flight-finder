@@ -26,3 +26,7 @@ the key "q".
 on the file, I denoted city lines by a starting string of "c: " and a similar
 approach was used for airlines and flights. This is what I use to distinguish
 cities from flights from airports when trying to load a specific one.
+
+ <strong>Screenshot:</strong>
+ <br>
+![Screenshot](/pic.png)
